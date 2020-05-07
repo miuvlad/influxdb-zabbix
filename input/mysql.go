@@ -123,8 +123,8 @@ replace(replace(CASE
     WHERE iap.itemid = ite.itemid), ' ', '\\ '), ',', ''), 'N.A.')
 || ' value=' || CAST(his.value as char)
 -- timestamp (in ms)
-|| ' ' || CAST((his.clock * 1000.) as char) as INLINE
-,  CAST((his.clock * 1000.) as char) as clock
+|| ' ' || CAST((his.clock * 1000. + his.ns DIV 1000000.) as char) as INLINE
+,  CAST((his.clock * 1000. + his.ns DIV 1000000.) as char) as clock
 FROM history his
 INNER JOIN items ite on ite.itemid = his.itemid
 INNER JOIN hosts hos on hos.hostid = ite.hostid
@@ -161,8 +161,8 @@ replace(replace(CASE
     WHERE iap.itemid = ite.itemid), ' ', '\\ '), ',', ''), 'N.A.')
 || ' value=' || CAST(his.value as char)
 -- timestamp (in ms)
-|| ' ' || CAST((his.clock * 1000.) as char) as INLINE
-,  CAST((his.clock * 1000.) as char) as clock
+|| ' ' || CAST((his.clock * 1000. + his.ns DIV 1000000.) as char) as INLINE
+,  CAST((his.clock * 1000. + his.ns DIV 1000000.) as char) as clock
 FROM history_uint his
 INNER JOIN items ite on ite.itemid = his.itemid
 INNER JOIN hosts hos on hos.hostid = ite.hostid
